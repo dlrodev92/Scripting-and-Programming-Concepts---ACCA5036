@@ -64,7 +64,7 @@ def display_inventory(items):
     print("-" * 40)
     for item in sorted(items.values(), key=lambda x: x['display_name'].lower()):
         print(item['display_name'].ljust(20),
-              str(f"{item['qty']:.2f}").ljust(10),
+              str(f"{item['cuantity']:.2f}").ljust(10),
               item['unit'].ljust(10))
     print("-" * 40)
 
@@ -109,14 +109,14 @@ def update_quantity(inventory, name=None):
 
        
         delta = verify_number("Enter quantity change (can be negative): ", allow_negative=True)
-        new_qty = inventory[normalized_name]['qty'] + delta
+        new_cuantity = inventory[normalized_name]['cuantity'] + delta
 
-        if new_qty < 0:
+        if new_cuantity < 0:
             display_error_message("Resulting quantity cannot be negative. Update cancelled.")
             return None
 
-        inventory[normalized_name]['qty'] = new_qty
-        print(f"Updated {name}. New quantity: {new_qty} {inventory[normalized_name]['unit']}")
+        inventory[normalized_name]['cuantity'] = new_cuantity
+        print(f"Updated {name}. New quantity: {new_cuantity} {inventory[normalized_name]['unit']}")
 
         
         if exit_from_mode("\nType 'c' to continue or type 'exit' to return to the main menu: "):
@@ -136,28 +136,28 @@ def add_ingredient(inventory):
             if action == 'I':
                 delta = update_quantity(inventory, normalized_name)
                 if delta is not None:
-                    inventory[normalized_name]['qty'] += delta
-                    print(f"Increased {name} by {delta}. New quantity: {inventory[normalized_name]['qty']} {inventory[normalized_name]['unit']}")
+                    inventory[normalized_name]['cuantity'] += delta
+                    print(f"Increased {name} by {delta}. New quantity: {inventory[normalized_name]['cuantity']} {inventory[normalized_name]['unit']}")
             elif action == 'R':
-                qty = verify_number("Enter new quantity: ")
+                cuantity = verify_number("Enter new quantity: ")
                 unit = input("Enter unit: ").strip()
                 if not verify_input(unit):
                     display_error_message("Invalid unit. Please use alphabetic characters only.")
                     return
-                inventory[normalized_name] = {"display_name": name, "qty": qty, "unit": unit}
-                print(f"Replaced {name} with new quantity: {qty} {unit}")
+                inventory[normalized_name] = {"display_name": name, "cuantity": cuantity, "unit": unit}
+                print(f"Replaced {name} with new quantity: {cuantity} {unit}")
             elif action == 'C':
                 display_error_message("Action cancelled.")
             else:
                 display_error_message("Invalid choice. Action cancelled.")
         else:
-            qty = verify_number("Enter quantity: ")
+            cuantity = verify_number("Enter quantity: ")
             unit = input("Enter unit: ").strip()
             if not verify_input(unit):
                 display_error_message("Invalid unit. Please use alphabetic characters only.")
                 return
-            inventory[normalized_name] = {"display_name": name, "qty": qty, "unit": unit}
-            print(f"Added {name} with quantity: {qty} {unit}")
+            inventory[normalized_name] = {"display_name": name, "cuantity": cuantity, "unit": unit}
+            print(f"Added {name} with quantity: {cuantity} {unit}")
 
         if exit_from_mode("\nPress 'c' to add a new ingredient or type 'exit' to return to the main menu: "):
             break
