@@ -17,7 +17,6 @@ Developed as part of the *Scripting and Programming Concepts (ACCA5036)* module.
 
 ## 📂 Project Structure
 - `main.py` → Main program source code
-- `docs/` → Coursework report & diagrams
 - `README.md` → This file
 
 ## 🚀 Usage
